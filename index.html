@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>মোঃ পিয়াস হাসান | Vibe Coder ও এআই ডেভেলপার</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@400;500;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- Clean & Modern Variables --- */
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --primary: #3b82f6;
+            --secondary: #8b5cf6;
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+            --transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans Bengali', 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1150px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* --- Navbar --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+        nav.scrolled {
+            background-color: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+        }
+        .logo span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+        }
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+        .animate-gradient {
+            background: linear-gradient(270deg, #3b82f6, #8b5cf6, #ec4899, #3b82f6);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientMove 6s ease infinite;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            max-width: 500px;
+        }
+
+        /* Profile Picture Animation */
+        .profile-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            animation: float 6s ease-in-out infinite;
+        }
+        .profile-img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(59, 130, 246, 0.2);
+            border: 2px solid rgba(255,255,255,0.1);
+        }
+        .glow-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120%;
+            height: 120%;
+            background: var(--gradient);
+            filter: blur(80px);
+            opacity: 0.3;
+            z-index: -1;
+            border-radius: 50%;
+        }
+
+        /* --- Buttons --- */
+        .btn {
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-decoration: none;
+            display: inline-block;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(59, 130, 246, 0.5);
+        }
+        .btn-outline {
+            border: 2px solid var(--text-muted);
+            color: var(--text-main);
+            margin-left: 15px;
+        }
+        .btn-outline:hover {
+            border-color: white;
+            background: white;
+            color: var(--bg-color);
+        }
+
+        /* --- Sections & Cards --- */
+        .section {
+            padding: 100px 0;
+        }
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            font-weight: 700;
+        }
+        
+        .grid-2, .grid-3 {
+            display: grid;
+            gap: 30px;
+        }
+        .grid-2 { grid-template-columns: 1fr 1fr; }
+        .grid-3 { grid-template-columns: repeat(3, 1fr); }
+
+        .card {
+            background: var(--card-bg);
+            padding: 40px 30px;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--gradient);
+            opacity: 0;
+            transition: var(--transition);
+            z-index: 0;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(139, 92, 246, 0.5);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+        .card > * { position: relative; z-index: 1; }
+        
+        .card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            transition: var(--transition);
+        }
+        .card:hover i { color: white; }
+
+        .card ul {
+            list-style: none;
+            margin-top: 20px;
+            color: var(--text-muted);
+        }
+        .card ul li { margin-bottom: 10px; font-size: 1.05rem;}
+
+        /* --- Portfolio --- */
+        .portfolio-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: var(--transition);
+        }
+        .portfolio-img-wrap {
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+        }
+        .portfolio-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        .portfolio-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+        .portfolio-card:hover .portfolio-img-wrap img {
+            transform: scale(1.1);
+        }
+        .portfolio-content {
+            padding: 25px;
+        }
+        .portfolio-content h3 { margin-bottom: 10px; font-size: 1.4rem; }
+        .portfolio-content p { color: var(--text-muted); font-size: 1rem; }
+
+        /* --- Contact Form --- */
+        input, textarea {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            background: #0f172a;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: white;
+            font-size: 1.05rem;
+            transition: var(--transition);
+        }
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.2);
+        }
+
+        /* --- Animations --- */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+
+        /* --- Mobile Responsive --- */
+        @media (max-width: 900px) {
+            .hero-grid { grid-template-columns: 1fr; text-align: center; }
+            .hero-title { font-size: 2.8rem; }
+            .hero p { margin: 0 auto 30px; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            .btn-outline { margin-left: 0; margin-top: 15px; display: block; width: 100%; }
+            .btn-primary { display: block; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">Piyash<span>.AI</span></a>
+            <ul class="nav-links">
+                <li><a href="#expertise">দক্ষতা</a></li>
+                <li><a href="#services">সেবাসমূহ</a></li>
+                <li><a href="#portfolio">প্রজেক্ট</a></li>
+                <li><a href="#contact">যোগাযোগ</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container hero-grid">
+            <div class="reveal">
+                <h1 class="hero-title">আমি একজন <span class="animate-gradient">Vibe Coder.</span><br>এআই (AI) দিয়ে যেকোনো ওয়েব ও অ্যাপ তৈরি করি।</h1>
+                <p>হ্যালো, আমি মোঃ পিয়াস হাসান। আমি মূলত এআই (AI) এর সাহায্যে আপনার যেকোনো আইডিয়াকে খুব দ্রুত একটি প্রফেশনাল ওয়েবসাইট বা ওয়েব অ্যাপ্লিকেশনে রূপান্তর করি।</p>
+                <div>
+                    <a href="#contact" class="btn btn-primary">প্রজেক্ট শুরু করুন</a>
+                    <a href="#portfolio" class="btn btn-outline">আমার কাজ দেখুন</a>
+                </div>
+            </div>
+            
+            <div class="profile-container reveal delay-2">
+                <div class="glow-circle"></div>
+                <img src="https://i.ibb.co.com/7t4PwFHM/1000031261.png" alt="মোঃ পিয়াস হাসান" class="profile-img">
+            </div>
+        </div>
+    </section>
+
+    <!-- Expertise Section -->
+    <section class="section" id="expertise">
+        <div class="container">
+            <h2 class="section-title reveal">আমার এক্সপার্টিজ</h2>
+            <div class="grid-2">
+                <div class="card reveal delay-1">
+                    <i class="fas fa-terminal"></i>
+                    <h3>Vibe Coder (ভাইব কোডার)</h3>
+                    <p>AI টুলস এবং প্রম্পট ইঞ্জিনিয়ারিং ব্যবহার করে যেকোনো জটিল ওয়েবসাইট ও ওয়েব অ্যাপ (Web App) দ্রুত তৈরি করতে পারি।</p>
+                    <ul>
+                        <li><i class="fas fa-check" style="font-size:14px; margin-right:8px;"></i> যেকোনো কাস্টম ওয়েবসাইট ও ওয়েব অ্যাপ</li>
+                        <li><i class="fas fa-check" style="font-size:14px; margin-right:8px;"></i> দ্রুত প্রোটোটাইপ ও MVP ডেভেলপমেন্ট</li>
+                        <li><i class="fas fa-check" style="font-size:14px; margin-right:8px;"></i> এআই প্রম্পট লজিক ও ইন্টিগ্রেশন</li>
+                    </ul>
+                </div>
+                <div class="card reveal delay-2">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>ডিজিটাল মার্কেটার</h3>
+                    <p>তৈরি করা অ্যাপ বা ওয়েবসাইটকে মানুষের কাছে পৌঁছে দিতে ডাটা-ড্রিভেন মার্কেটিং ও অটোমেশন ফানেল সেটআপ করি।</p>
+                    <ul>
+                        <li><i class="fas fa-check" style="font-size:14px; margin-right:8px;"></i> মেটা এবং গুগল অ্যাডস ক্যাম্পেইন</li>
+                        <li><i class="fas fa-check" style="font-size:14px; margin-right:8px;"></i> হাই-কনভার্টিং ল্যান্ডিং পেজ ডিজাইন</li>
+                        <li><i class="fas fa-check" style="font-size:14px; margin-right:8px;"></i> অ্যাডভান্সড ট্র্যাকিং ও এআই চ্যাটবট</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section class="section" style="background: #0b1120;" id="services">
+        <div class="container">
+            <h2 class="section-title reveal">আমি যা যা বানাতে পারি</h2>
+            <div class="grid-3">
+                <div class="card reveal delay-1">
+                    <i class="fas fa-layer-group"></i>
+                    <h3>যেকোনো ওয়েব অ্যাপ</h3>
+                    <p style="color: #94a3b8; font-size: 1rem;">SaaS ড্যাশবোর্ড, ম্যানেজমেন্ট সিস্টেম থেকে শুরু করে যেকোনো ওয়েব অ্যাপ্লিকেশন।</p>
+                </div>
+                <div class="card reveal delay-2">
+                    <i class="fas fa-bolt"></i>
+                    <h3>এআই-জেনারেটেড ওয়েবসাইট</h3>
+                    <p style="color: #94a3b8; font-size: 1rem;">AI ব্যবহার করে অত্যন্ত দ্রুত ও প্রফেশনাল পোর্টফোলিও বা বিজনেস ওয়েবসাইট।</p>
+                </div>
+                <div class="card reveal delay-3">
+                    <i class="fas fa-robot"></i>
+                    <h3>মার্কেটিং ও অটোমেশন</h3>
+                    <p style="color: #94a3b8; font-size: 1rem;">লিড জেনারেশন, সেলস ফানেল এবং এআই চ্যাটবট দিয়ে আপনার ব্যবসার অটোমেশন।</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio with Images -->
+    <section class="section" id="portfolio">
+        <div class="container">
+            <h2 class="section-title reveal">সাম্প্রতিক কাজসমূহ</h2>
+            <div class="grid-3">
+                <div class="portfolio-card reveal delay-1">
+                    <div class="portfolio-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Web App Dashboard">
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>কাস্টম অ্যাডমিন ড্যাশবোর্ড</h3>
+                        <p><strong>বিস্তারিত:</strong> AI এর সাহায্যে খুব দ্রুত একটি সম্পূর্ণ ইউজার ম্যানেজমেন্ট ওয়েব অ্যাপ তৈরি।</p>
+                    </div>
+                </div>
+                <div class="portfolio-card reveal delay-2">
+                    <div class="portfolio-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="E-commerce Web App">
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>ই-কমার্স সেলস ফানেল</h3>
+                        <p><strong>ফলাফল:</strong> কাস্টম ল্যান্ডিং পেজ ও মেটা অ্যাডসের মাধ্যমে ১২০% সেলস বৃদ্ধি।</p>
+                    </div>
+                </div>
+                <div class="portfolio-card reveal delay-3">
+                    <div class="portfolio-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Real Estate Lead Gen">
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>এআই লিড জেনারেশন সিস্টেম</h3>
+                        <p><strong>ফলাফল:</strong> এআই চ্যাটবট ইন্টিগ্রেশনের মাধ্যমে প্রতি মাসে ৩০০+ রিয়েল এস্টেট লিড সংগ্রহ।</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section" id="contact" style="background: #0b1120;">
+        <div class="container grid-2">
+            <div class="reveal">
+                <h2 style="font-size: 3rem; margin-bottom: 20px; font-weight:700;">আপনার আইডিয়াকে <br><span class="animate-gradient">অ্যাপে/ওয়েব রূপান্তর করুন।</span></h2>
+                <p style="color: var(--text-muted); margin-bottom: 30px; font-size: 1.1rem;">আপনার মাথায় কি কোনো অ্যাপ বা ওয়েবসাইটের আইডিয়া ঘুরছে? আমাকে জানান, আমি এআই দিয়ে সেটি দ্রুত বানিয়ে দেবো।</p>
+                <p style="font-size: 1.1rem; margin-bottom: 15px;"><i class="fas fa-envelope" style="color:var(--primary); margin-right:10px;"></i> hello@piyash.ai</p>
+                <p style="font-size: 1.1rem;"><i class="fab fa-whatsapp" style="color:#25D366; margin-right:10px;"></i> +880 1XXX XXXXXX</p>
+            </div>
+            
+            <div class="card reveal delay-2">
+                <form id="cert-contact-form">
+                    <input type="text" id="sender-name" placeholder="আপনার নাম" required>
+                    <input type="text" id="sender-contact" placeholder="ইমেইল অ্যাড্রেস/হোয়াটসঅ্যাপ" required>
+                    <textarea id="sender-msg" rows="4" placeholder="আপনার আইডিয়া বা প্রজেক্ট সম্পর্কে লিখুন..." required></textarea>
+                    <button type="submit" id="submit-btn" class="btn btn-primary" style="width: 100%;">মেসেজ পাঠান</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="text-align: center; padding: 30px 0; border-top: 1px solid rgba(255,255,255,0.05);">
+        <p style="color: var(--text-muted);">&copy; ২০২৪ মোঃ পিয়াস হাসান | Vibe Coder. সর্বস্বত্ব সংরক্ষিত।</p>
+    </footer>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+    <script>
+        // Firebase Configuration (পিয়াস হাসানের মেইন কনফিগ)
+        const firebaseConfig = {
+            apiKey: "AIzaSyAXSLgGP_fEOblHAqf1bGU5ENkUckmPnm4",
+            authDomain: "all-info-f4fd6.firebaseapp.com",
+            projectId: "all-info-f4fd6",
+            storageBucket: "all-info-f4fd6.firebasestorage.app",
+            messagingSenderId: "622193874862",
+            appId: "1:622193874862:web:aff830d0cfa9b93b875a3f"
+        };
+
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const db = firebase.firestore();
+
+        // Form Submission Logic
+        const contactForm = document.getElementById('cert-contact-form');
+        const submitBtn = document.getElementById('submit-btn');
+
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById('sender-name').value;
+            const contact = document.getElementById('sender-contact').value;
+            const message = document.getElementById('sender-msg').value;
+
+            submitBtn.disabled = true;
+            submitBtn.innerText = "পাঠানো হচ্ছে...";
+
+            try {
+                // আপনার ডাটাবেস আইডিতে সরাসরি কানেক্ট করা হলো
+                await db.collection('users').doc("fAd8WCdkBdS8kjvdGfqUKeW2Myr1").collection('inbox').add({
+                    itemTitle: "Portfolio Lead",
+                    message: `নাম: ${name}\nযোগাযোগ: ${contact}\nমেসেজ: ${message}`,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                    isRead: false
+                });
+
+                alert("মেসেজটি পিয়াস ভাইয়ের কাছে পাঠানো হয়েছে! ✅");
+                contactForm.reset();
+            } catch (error) {
+                console.error("Error:", error);
+                alert("দুঃখিত, কোনো একটি সমস্যা হয়েছে। আবার চেষ্টা করুন।");
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = "মেসেজ পাঠান";
+            }
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+            reveal();
+        });
+
+        // Scroll Reveal Animation
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100; 
+
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        reveal();
+    </script>
+</body>
+</html>
